@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom';
 import App from './App';
+import CartProvider from './store/CartProvider';
 
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<CartProvider><App /></CartProvider>, document.getElementById('root'));
 

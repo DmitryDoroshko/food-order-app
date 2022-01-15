@@ -1,5 +1,6 @@
 import React, { useReducer } from "react";
 import CartContext from "./cart-context";
+import { isObjectEmpty } from "./../utils/helpers";
 
 const ADD_ITEM_TO_CART = "ADD_ITEM_TO_CART";
 const REMOVE_ITEM_FROM_CART = "REMOVE_ITEM_FROM_CART";
@@ -9,14 +10,13 @@ const initialState = {
     totalAmount: 0,
 };
 
-function cartReducer(state, action) {
+function cartReducer(state = initialState, action) {
     let updatedItems = [],
         updatedTotalAmount = 0;
     if (action.type === ADD_ITEM_TO_CART) {
         const itemIndexInCart = state.items.findIndex(
             (item) => item.id === action.payload.item.id
         );
-
         const existingCartItem = state.items[itemIndexInCart];
 
         let updatedItem;
@@ -71,9 +71,19 @@ function cartReducer(state, action) {
 const CartProvider = (props) => {
     const [cartState, dispatchCart] = useReducer(cartReducer, initialState);
 
-    const addItemToCartHandler = (item) => {};
+    const addItemToCartHandler = (item) => {
+        if (isObjectEmpty(item)) {
+            return;
+        }
+        dispatchCart({ type: ADD_ITEM_TO_CART, payload: { item: item } });
+    };
 
-    const removeItemFromCartHandler = (idOfItemToBeRemoved) => {};
+    const removeItemFromCartHandler = (idOfItemToBeRemoved) => {
+        dispatchCart({
+            type: REMOVE_ITEM_FROM_CART,
+            payload: { id: idOfItemToBeRemoved },
+        });
+    };
 
     const cartContextValue = {
         items: cartState.items,

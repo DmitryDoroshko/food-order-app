@@ -7,7 +7,13 @@ import CartItem from "./../CartItem/CartItem";
 function Cart(props) {
     const cartContext = useContext(CartContext);
 
-    const totalAmountString = `$${cartContext.totalAmount.toFixed(2)}`;
+    let totalPriceForSelectedItemsString = `$0.00`;
+
+    if (cartContext.totalPriceForSelectedItems.toFixed(2) != -0.0) {
+        totalPriceForSelectedItemsString = `$${cartContext.totalPriceForSelectedItems.toFixed(
+            2
+        )}`;
+    }
 
     const cartItems = (
         <ul className={classes["cart-items"]}>
@@ -19,6 +25,10 @@ function Cart(props) {
                         name={cartItem.name}
                         amount={cartItem.amount}
                         price={cartItem.price}
+                        onRemove={() =>
+                            cartContext.removeSingleItem(cartItem.id)
+                        }
+                        onAdd={() => cartContext.addSingleItem(cartItem)}
                     />
                 );
             })}
@@ -29,8 +39,8 @@ function Cart(props) {
         <Modal onHide={props.onCloseCart}>
             {cartItems}
             <div className={classes.total}>
-                <span>Total amount</span>
-                <span>{totalAmountString}</span>
+                <span>Total price</span>
+                <span>{totalPriceForSelectedItemsString}</span>
             </div>
             <div className={classes.actions}>
                 <button

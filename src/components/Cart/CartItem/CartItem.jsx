@@ -1,10 +1,6 @@
 import classes from "./CartItem.module.css";
 
 const CartItem = (props) => {
-    console.group("Cart item");
-    console.log("props", props);
-    console.groupEnd();
-
     const price = `$${props.price.toFixed(2)}`;
 
     return (

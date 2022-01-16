@@ -2,10 +2,12 @@ import React, { useState, useContext, useRef } from "react";
 import CartContext from "../../../store/cart-context";
 import Input from "../../UI/Input/Input";
 import classes from "./MealItemForm.module.css";
+import MealsContext from "./../../../store/meals-context";
 
 function MealItemForm(props) {
     const [isAmountValid, setIsAmountValid] = useState(true);
     const cartContext = useContext(CartContext);
+    const mealsContext = useContext(MealsContext);
     const inputRef = useRef();
 
     const addItemHandler = (event) => {
@@ -19,7 +21,20 @@ function MealItemForm(props) {
             return;
         }
         setIsAmountValid(true);
-        cartContext.addItem(enteredAmountNumber);
+
+        const mealFoundByIdInMealsContextList = mealsContext.meals.find(
+            (meal) => meal.id === props.id
+        );
+
+        const itemToBeAdded = {
+            id: mealFoundByIdInMealsContextList.id,
+            name: mealFoundByIdInMealsContextList.name,
+            amount: enteredAmountNumber,
+            price: mealFoundByIdInMealsContextList.price,
+        };
+
+        inputRef.current.value = 1;
+        cartContext.addItem(itemToBeAdded);
     };
 
     return (

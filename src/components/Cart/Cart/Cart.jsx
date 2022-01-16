@@ -7,17 +7,14 @@ import CartItem from "./../CartItem/CartItem";
 function Cart(props) {
     const cartContext = useContext(CartContext);
 
-    const totalAmount = cartContext.items.reduce((prev, curr) => {
-        return prev + curr.price * curr.totalAmount;
-    }, 0);
-
-    const totalAmountString = `$${totalAmount.toFixed(2)}`;
+    const totalAmountString = `$${cartContext.totalAmount.toFixed(2)}`;
 
     const cartItems = (
         <ul className={classes["cart-items"]}>
             {cartContext.items.map((cartItem) => {
                 return (
                     <CartItem
+                        key={cartItem.id}
                         id={cartItem.id}
                         name={cartItem.name}
                         amount={cartItem.amount}

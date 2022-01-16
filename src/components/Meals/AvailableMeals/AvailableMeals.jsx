@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import classes from "./AvailableMeals.module.css";
 import Card from "./../../UI/Card/Card";
 import MealItem from "../MealItem/MealItem";
-import DUMMY_MEALS from "./../../../utils/dummy-meals";
+import MealsContext from "./../../../store/meals-context";
 
 function AvailableMeals() {
-    const [availableMealsData, setAvailableMealsData] = useState(DUMMY_MEALS);
+    const mealsContext = useContext(MealsContext);
 
-    const mealsList = availableMealsData.map((meal) => {
+    const mealsList = mealsContext.meals.map((meal) => {
         return (
             <MealItem
                 key={meal.id}

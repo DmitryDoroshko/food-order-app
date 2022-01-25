@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import classes from "./Cart.module.css";
 import Modal from "./../../UI/Modal/Modal";
 import CartContext from "../../../store/cart-context";
@@ -40,6 +40,12 @@ function Cart(props) {
     const handleOrderButtonClick = () => {
         setIsOrdering((prev) => !prev);
     };
+
+    useEffect(() => {
+        if (+cartContext.totalPriceForSelectedItems === 0) {
+            setIsOrdering(false);
+        }
+    }, [cartContext.totalPriceForSelectedItems]);
 
     return (
         <Modal onHide={props.onCloseCart}>

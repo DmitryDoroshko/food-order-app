@@ -47,6 +47,24 @@ function Cart(props) {
         }
     }, [cartContext.totalPriceForSelectedItems]);
 
+    const actionsButtonsIfNotOrdering = (
+        <div className={classes.actions}>
+            <button
+                className={classes["button--alt"]}
+                onClick={props.onCloseCart}
+            >
+                Close
+            </button>
+            <button
+                className={classes.button}
+                disabled={cartContext.items.length === 0 ? true : false}
+                onClick={handleOrderButtonClick}
+            >
+                Order
+            </button>
+        </div>
+    );
+
     return (
         <Modal onHide={props.onCloseCart}>
             {cartItems}
@@ -55,21 +73,7 @@ function Cart(props) {
                 <span>{totalPriceForSelectedItemsString}</span>
             </div>
             {isOrdering && <CartForm />}
-            <div className={classes.actions}>
-                <button
-                    className={classes["button--alt"]}
-                    onClick={props.onCloseCart}
-                >
-                    Close
-                </button>
-                <button
-                    className={classes.button}
-                    disabled={cartContext.items.length === 0 ? true : false}
-                    onClick={handleOrderButtonClick}
-                >
-                    Order
-                </button>
-            </div>
+            {!isOrdering && actionsButtonsIfNotOrdering}
         </Modal>
     );
 }

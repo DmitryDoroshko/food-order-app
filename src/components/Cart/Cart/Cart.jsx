@@ -49,7 +49,12 @@ function Cart(props) {
                 >
                     Close
                 </button>
-                <button className={classes.button}>Order</button>
+                <button
+                    className={classes.button}
+                    disabled={ (cartContext.items.length === 0) ? true : false}
+                >
+                    Order
+                </button>
             </div>
         </Modal>
     );

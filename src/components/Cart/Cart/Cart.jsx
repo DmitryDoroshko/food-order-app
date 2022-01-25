@@ -1,10 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import classes from "./Cart.module.css";
 import Modal from "./../../UI/Modal/Modal";
 import CartContext from "../../../store/cart-context";
 import CartItem from "./../CartItem/CartItem";
+import CartForm from "./../CartForm/CartForm/CartForm";
 
 function Cart(props) {
+    const [isOrdering, setIsOrdering] = useState(false);
     const cartContext = useContext(CartContext);
 
     let totalPriceForSelectedItemsString = `$0.00`;
@@ -35,6 +37,10 @@ function Cart(props) {
         </ul>
     );
 
+    const handleOrderButtonClick = () => {
+        setIsOrdering((prev) => !prev);
+    };
+
     return (
         <Modal onHide={props.onCloseCart}>
             {cartItems}
@@ -42,6 +48,7 @@ function Cart(props) {
                 <span>Total price</span>
                 <span>{totalPriceForSelectedItemsString}</span>
             </div>
+            {isOrdering && <CartForm />}
             <div className={classes.actions}>
                 <button
                     className={classes["button--alt"]}
@@ -51,7 +58,8 @@ function Cart(props) {
                 </button>
                 <button
                     className={classes.button}
-                    disabled={ (cartContext.items.length === 0) ? true : false}
+                    disabled={cartContext.items.length === 0 ? true : false}
+                    onClick={handleOrderButtonClick}
                 >
                     Order
                 </button>

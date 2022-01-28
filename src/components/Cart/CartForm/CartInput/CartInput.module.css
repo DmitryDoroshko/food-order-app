@@ -21,3 +21,9 @@
 .form-input:active {
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45);
 }
+
+.invalid {
+    border-color: red;
+    color: white;
+    background-color: #cc430dc4;
+}

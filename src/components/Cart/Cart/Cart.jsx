@@ -41,6 +41,10 @@ function Cart(props) {
         setIsOrdering((prev) => !prev);
     };
 
+    const cartFormCancelHandler = () => {
+        setIsOrdering(false);
+    };
+
     useEffect(() => {
         if (+cartContext.totalPriceForSelectedItems === 0) {
             setIsOrdering(false);
@@ -72,7 +76,9 @@ function Cart(props) {
                 <span>Total price</span>
                 <span>{totalPriceForSelectedItemsString}</span>
             </div>
-            {isOrdering && <CartForm />}
+            {isOrdering && (
+                <CartForm onCartFormCancel={cartFormCancelHandler} />
+            )}
             {!isOrdering && actionsButtonsIfNotOrdering}
         </Modal>
     );

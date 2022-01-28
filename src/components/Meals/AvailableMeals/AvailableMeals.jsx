@@ -7,17 +7,21 @@ import MealsContext from "./../../../store/meals-context";
 function AvailableMeals() {
     const mealsContext = useContext(MealsContext);
 
-    const mealsList = mealsContext.meals.map((meal) => {
-        return (
-            <MealItem
-                key={meal.id}
-                id={meal.id}
-                name={meal.name}
-                description={meal.description}
-                price={meal.price}
-            />
-        );
-    });
+    let mealsList = <p>No meals for now...</p>;
+
+    if (mealsContext.meals.length !== 0) {
+        mealsList = mealsContext.meals.map((meal) => {
+            return (
+                <MealItem
+                    key={meal.id}
+                    id={meal.id}
+                    name={meal.name}
+                    description={meal.description}
+                    price={meal.price}
+                />
+            );
+        });
+    }
 
     return (
         <section className={classes.meals}>

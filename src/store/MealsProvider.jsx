@@ -1,10 +1,9 @@
 import { isObjectEmpty } from "./../utils/helpers";
 import { useEffect, useState } from "react";
 import MealsContext from "./meals-context";
-import DUMMY_MEALS from "./../utils/dummy-meals";
 
 export const MealsProvider = (props) => {
-    const [meals, setMeals] = useState(DUMMY_MEALS);
+    const [meals, setMeals] = useState([]);
 
     const addNewMealHandler = (newMeal) => {
         if (!isObjectEmpty(newMeal)) {
@@ -20,10 +19,16 @@ export const MealsProvider = (props) => {
         });
     };
 
+    const submitOrderedItemsHandler = (items, userInfo) => {
+        console.log(items);
+        console.log(userInfo);
+    };
+
     const mealsContextValue = {
         meals: meals,
         addNewMeal: addNewMealHandler,
         removeMeal: removeMealHandler,
+        submitOrderedItems: submitOrderedItemsHandler,
     };
 
     useEffect(() => {

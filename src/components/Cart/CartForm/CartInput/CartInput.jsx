@@ -13,7 +13,9 @@ const CartInput = React.forwardRef((props, ref) => {
                 onChange={props.onChange}
                 onBlur={props.onBlur}
                 value={props.value}
-                className={classes["form-input"]}
+                className={`${classes["form-input"]} ${
+                    props.invalid ? classes.invalid : ""
+                }`}
                 ref={ref}
             />
         </div>

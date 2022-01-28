@@ -1,3 +1,7 @@
+.cart-form {
+    overflow: auto;
+}
+
 .cart-form button {
     font: inherit;
     cursor: pointer;
